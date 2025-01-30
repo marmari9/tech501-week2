@@ -1,3 +1,14 @@
+- [Create a new VM:](#create-a-new-vm)
+  - [Dependencies](#dependencies)
+- [install mongodb:](#install-mongodb)
+- [on the app vm:](#on-the-app-vm)
+- [Creating a reverse proxy:](#creating-a-reverse-proxy)
+  - [on the app VM:](#on-the-app-vm-1)
+- [Run the app in the background:](#run-the-app-in-the-background)
+  - [using pm2:](#using-pm2)
+  - [using \&:](#using-)
+- [Create Database VM image:](#create-database-vm-image)
+
 ## Create a new VM:
 ### Dependencies
 - Name: tech501-yourname-sparta-app-db-vm
@@ -76,13 +87,13 @@ then printenv DB_HOST to check if its correct.
 1- install pm2: 
     - sudo npm install -g pm2
 2- Start the app with pm2:
-    - pm2 start app.js --name "my-app"
+    - pm2 start app.js --name "app"
 
 3- Stop the app:
-    - pm2 stop "my-app"
+    - pm2 stop "app"
 
 4- Restart the app:
-    - pm2 restart "my-app"
+    - pm2 restart "app"
 5- Check running apps:
     - pm2 list
 
