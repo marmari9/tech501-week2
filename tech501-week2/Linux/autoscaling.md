@@ -1,18 +1,17 @@
-### autoscaling and load balancers:
+### Autoscaling and load balancers:
 
 - Autoscaling is important for high availability and scalability.
 - There are two types of scaling; horizontal and vertical. check the diagram.
 - in a scale set you have to plan ahead what are the default, max, min instances and the architecture. 
 
-![
-](<Screenshot 2025-01-30 162607.png>)
+![alt text](<Screenshot 2025-01-30 162607-1.png>)
 
-![alt text](<Screenshot 2025-01-30 162651.png>)
-
+![alt text](<Screenshot 2025-01-30 162651-1.png>)
 
 ![alt text](<Screenshot 2025-01-30 162737.png>)
 
-- From scale set
+
+### Creating a scale set
     name:tech501-maram-sparta-app-vmss
     - Availability zones: tick all 3 zones
     - Orchestration mode: Uniform
@@ -37,4 +36,10 @@
 
 * After stopping the vm scale set. you have to reimage one of the instances so the app would work, this allows for the app disc to copy everything again into a new disc with the userdata. 
 * When deleting scale set we should delete the load balncer seperately. 
-* In a production setting when don't ssh to instances to make changes/updates. Updates are done from the scale set by changing the image or replacing it systematically. 
+* In a production setting when don't ssh to instances to make changes/updates. Updates are done from the scale set by changing the image or replacing it systematically.
+
+
+![alt text](<Screenshot 2025-01-30 170237.png>)
+
+![alt text](<Screenshot 2025-01-30 170734-1.png>)
+
