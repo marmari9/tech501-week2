@@ -14,8 +14,8 @@
 ## Creating an APP VM 
 - Name: tech501-maram-first-deploy-app-vm
 - image: Ubuntu Server 22.04LTS- x64 Gen2
-- Security: Standard
-- SSH: already existing key and chhose tech501-maram-key
+- Security Type: Standard not trusted 
+- SSH: already existing key and choose tech501-maram-az-key
 - Networking: Allow ssh on port 22, HTTP(80), and 3000
 - SSH to the VM:
     - from connect
@@ -86,7 +86,7 @@ sudo systemctl status nginx
 - in advanced: userdata:
 #!/bin/bash
 cd /app
-export DB_HOST=mongodb://10.0.3.4:27017/posts
+export DB_HOST=mongodb://10.0.3.4:27017/posts;; always check for the private IP of the database if it needs to be changed.
 pm2 start app.js
 - create vm and check public IP
 - use /posts 

@@ -1,15 +1,16 @@
-- [Creating a scale set:](#creating-a-scale-set)
+- [Autoscaling and load balancers:](#autoscaling-and-load-balancers)
+  - [Creating a scale set:](#creating-a-scale-set)
   - [Connecting to instances:](#connecting-to-instances)
   - [Deleting a scale set:](#deleting-a-scale-set)
 
-### Autoscaling and load balancers:
+## Autoscaling and load balancers:
 
 - Autoscaling is important for high availability and scalability.
 - There are two types of scaling; horizontal and vertical. check the diagram.
-- In a scale set you have to plan ahead what are the default, max, min instances and the architecture.
+- In a scale set you have to plan ahead what are the default, max and min instances and the architecture.
 - Load balancers distribute the incoming traffic to healthy instances and ensures high availability.
 
-## Creating a scale set:
+### Creating a scale set:
 
 - Basics Tab:
 

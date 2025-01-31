@@ -45,7 +45,7 @@
 - Restart the mongod db service:
   - sudo systemctl restart mongod
   - sudo systemctl status mongod
----------------------------
+-------------------------------------------------------------------------------------------
 
 - Enable the DB (add to the starter menu):
   - sudo systemctl enable mongod 
@@ -61,25 +61,27 @@ then printenv DB_HOST to check if its correct.
 - npm install
 - node app.js
 - the IP address: http://PublicIP:3000/posts
---------------------------------------------
+------------------------------------------------------------------------------------------
 
 ## Creating a reverse proxy:
 ### on the app VM:
-1- Edit Nginx Configuration:
+1- Create a backup file of the configuration file
+2- Edit Nginx Configuration:
     - sudo nano /etc/nginx/sites-available/default
-2- change the location and add this:
-    - proxy_pass http://localhost:3000;
+3- change the location and add this:
+    - On Location just remove the line and add this: proxy_pass http://localhost:3000;
+    - this would allow access on port 80. it was only allowed on port 3000.
     - Ctrl + S; Ctrl + x
-3- Test the Configuration:
+4- Test the Configuration:
     - sudo nginx -t
-4- restart the nginx:
+5- restart the nginx:
     - sudo systemctl restart nginx
-5- Start the app:
+6- Start the app:
     - npm start
-5- Verify:
+7- Verify:
     - http://<your-public-ip>, http://172.187.176.32
 
----------------------------------------
+------------------------------------------------------------------------------------------
 
 ## Run the app in the background:
 ### using pm2:
@@ -88,10 +90,8 @@ then printenv DB_HOST to check if its correct.
     - sudo npm install -g pm2
 2- Start the app with pm2:
     - pm2 start app.js --name "app"
-
 3- Stop the app:
     - pm2 stop "app"
-
 4- Restart the app:
     - pm2 restart "app"
 5- Check running apps:
@@ -115,7 +115,6 @@ then printenv DB_HOST to check if its correct.
 
 ## Create Database VM image:
 - SSH into the Database VM
-
 - Run:
     - sudo waagent -deprovision+user
     - This will delete the adminuser (home directory)
