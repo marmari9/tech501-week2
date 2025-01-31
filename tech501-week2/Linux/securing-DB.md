@@ -326,18 +326,13 @@ chmod +x config-ip-tables.sh
 
 
 ### tep 7 change DB NSG 
-Allow MongoDB traffic from the app VM:
-
-IP Address: 10.0.2.0/24
-Service: mongodb
-Destination Port: 27017
-Deny all other traffic to ensure only allowed connections can reach the database.
-
-Modify Destination Port Ranges:
-
-Set the destination port ranges to * for more cover.
-Add Rule Numbering:
-Set the rule number to 1000.
+- Allow MongoDB traffic from the app VM:
+- IP Address: 10.0.2.0/24
+- Service: mongodb
+- Destination Port: 27017
+- Deny all other traffic to ensure only allowed connections can reach the database.
+- Set the destination port ranges to * for more cover.
+- Set the rule number to 1000.
 
 
 
