@@ -11,34 +11,39 @@
 
 ## Creating a scale set:
 
-**Basics Tab**
+- Basics Tab:
 
     name:tech501-maram-sparta-app-vmss
-    - **Availability** zones: tick all 3 zones
-    - **Orchestration** mode: Uniform
-    - **scaling mode**: Autoscaling and change config max:3, min:2, default:2
+    - Availability zones: tick all 3 zones
+    
+    - Orchestration mode: Uniform
+    
+    - scaling mode: Autoscaling and change config max:3, min:2, default:2
+    
     - from images choose your own image
-    - **username**:adminuser
+    
+    - username:adminuser
+    
     - SSH: use existing key and choose tech501-maram-az-key
 
-**Discs Tab**: standard SSD
+- Discs Tab: standard SSD
 
-**Networking Tab**:
+- Networking Tab:
       - choose maram-vnet; public subnet
       - azure load balancer
       - Create a new load balancer and keep the default settings
         - Load Balancer name: (tech501-maram-sparta-app-lb)
 
-**Health Tab**: 
+- Health Tab: 
       - enable application health monitoring
       - enable automatic repairs
 
-**Advanced Tab**: enable userdata and enter;
+- Advanced Tab: enable userdata and enter;
       - #!/bin/bash
-        cd /app-folder
+        cd /app
         pm2 start app.js
 
-**Tags**: Owner: Maram
+- Tags: Owner: Maram
     - Create
     - Check the public IP address of the scale set
 

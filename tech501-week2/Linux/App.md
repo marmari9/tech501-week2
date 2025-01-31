@@ -85,7 +85,7 @@ sudo systemctl status nginx
 - License: select other
 - in advanced: userdata:
 #!/bin/bash
-cd /repo/app
+cd /app
 export DB_HOST=mongodb://10.0.3.4:27017/posts
 pm2 start app.js
 - create vm and check public IP
