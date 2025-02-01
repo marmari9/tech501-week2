@@ -1,9 +1,47 @@
 # Securing Databases using a 3-subnet architecture:
 - A 3-subnet architecture using a DMZ (Demilitarized Zone) subnet and an NVA (Firewall) adds additional security layers by controlling traffic between external users, applications, and the database.
 
-# Creating a 3-Subnet Architecture to Secure the Database  
+## Creating a 3-Subnet Architecture to Secure the Database  
 
-## step 1: Create the Database VM  
+![alt text](<Securing database.png>)
+
+## Step 1: Create the Virtual Network (VNet)
+
+### 🔹 Create the VNet `tech501-maram-3-subnet-vnet`
+
+1. Go to **Azure Portal** → **Virtual Networks** → **Create a virtual network**.
+2. On the **Basics** tab, configure the following:
+   - **Resource Group:** tech501
+   - **Name:** `tech501-maram-3-subnet-vnet`
+   - **Region:** UK South
+
+3. Click **Next: IP Addresses**.
+
+---
+
+### 🔹 Configure Subnets
+
+4. Under the **IP Addresses** tab:
+   - **IPv4 Address Space:** `10.0.0.0/16`
+
+5. Click **+ Add Subnet** and configure the following:
+   - **Name:** `Private Subnet`
+   - **Subnet Address Range:** `10.0.4.0/24`
+
+6. Click **+ Add Subnet** and configure the following:
+   - **Name:** `Public Subnet`
+   - **Subnet Address Range:** `10.0.2.0/24`
+
+7. Click **+ Add Subnet** and configure the following:
+   - **Name:** `dmz-Subnet`
+   - **Subnet Address Range:** `10.0.3.0/24`
+
+8. Click **Next: Security** and configure as needed.
+9. Click **Next: Tags** and add:
+   - **Owner:** `Maram`
+10. Click **Review + Create** ✅
+
+## step 2: Create the Database VM  
 
 ### 🔹 Use the "tech501-maram-ready-to-run-db-img" Image  
 
@@ -33,7 +71,7 @@
 
 ---
 
-## Step 2: Create the Application VM  
+## Step 3: Create the Application VM  
 
 ### 🔹 Use the "tech501-maram-second-deploy-app-vm-img" Image  
 
@@ -79,10 +117,10 @@
    ping 10.0.4.4
 3. Check if the application is running
     ```bash
-    http://<app-vm-public-ip>/posts
+    http://http://20.90.209.188/posts
 
 ---
-## step 3: Create the NVA (Network Virtual Appliance) VM  
+## step 4: Create the NVA (Network Virtual Appliance) VM  
 
 1. Go to **Azure Portal** → **Create a Virtual Machine**.  
 2. On the **Basics** tab, configure the following:  
@@ -105,13 +143,11 @@
 5. Click **Review and Create** ✅  
 
 ---
-## Step 4: Create the Route Table and Add Routes
+## Step 5: Create the Route Table and Add Routes
 
 ### 1. Create the Route Table
-- Navigate to the **VPC Dashboard** in the AWS Management Console.
 - Under **Route Tables**, click **Create route table**.
 - Name the route table as `tech501-maram-to-private-table-rt`.
-- Select the appropriate **VPC** (e.g., **tech501**).
 - Click **Create** to create the route table.
 
 ### 2. Add a Route to the Table
@@ -135,7 +171,7 @@ This ensures that the route table `tech501-maram-to-private-table-rt` is associa
 
 ---
 
-## step 5: Enabling IP Forwarding on NVA in Azure
+## step 6: Enabling IP Forwarding on NVA in Azure
 
 ### Why Enable IP Forwarding?
 
@@ -187,7 +223,7 @@ sudo sysctl -p
 * after reloading the ping should be back to work
 ----
 
-### 6 # Creating Iptables Rules
+### Step 7 # Creating Iptables Rules
 
 ### 1. Create a Bash Script to Automate Iptables Configuration
 
@@ -325,7 +361,8 @@ chmod +x config-ip-tables.sh
  ./config-ip-tables.sh
 
 
-### tep 7 change DB NSG 
+## Step 8 Change database NSG:
+
 - Allow MongoDB traffic from the app VM:
 - IP Address: 10.0.2.0/24
 - Service: mongodb
