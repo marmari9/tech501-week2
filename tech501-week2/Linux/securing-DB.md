@@ -218,8 +218,9 @@ net.ipv4.ip_forward=1
 3. Apply the Changes
 To apply the changes immediately, run the following command:
 
+```bash
 sudo sysctl -p
-
+```
 * after reloading the ping should be back to work
 ----
 
@@ -228,9 +229,9 @@ sudo sysctl -p
 ### 1. Create a Bash Script to Automate Iptables Configuration
 
 To automate the configuration of `iptables`, create a bash script called `config-ip-tables.sh`:
-
+```bash
 nano config-ip-tables.sh
-
+```
 
 2. Add the Following Content to the Script
 ```bash
@@ -354,22 +355,26 @@ echo "Done!"
 echo ""
 ```
 
-3. Change Permissions for the Script
+3. Change Permissions for the Script:
+```bash
 chmod +x config-ip-tables.sh
+```
 
 4. Run the Script:
+```bash
  ./config-ip-tables.sh
-
+```
 
 ## Step 8 Change database NSG:
 
 - Allow MongoDB traffic from the app VM:
-- IP Address: 10.0.2.0/24
-- Service: mongodb
-- Destination Port: 27017
+  - IP Address: 10.0.2.0/24
+  - Service: mongodb
+  - Destination Port: 27017
 - Deny all other traffic to ensure only allowed connections can reach the database.
-- Set the destination port ranges to * for more cover.
-- Set the rule number to 1000.
+  - Set the destination port ranges to * for more cover.
+  - Set the rule number to 1000.
+- Following the deny rules the ping should stop and will only work if we set a new rule allowing ping before the deny rule. 
 
 
 
