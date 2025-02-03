@@ -1,3 +1,4 @@
+
 # Securing Databases using a 3-subnet architecture:
 - A 3-subnet architecture using a DMZ (Demilitarized Zone) subnet and an NVA (Firewall) adds additional security layers by controlling traffic between external users, applications, and the database.
 
@@ -17,6 +18,7 @@
 
 3. Click **Next: IP Addresses**.
 
+
 ---
 
 ### 🔹 Configure Subnets
@@ -27,6 +29,7 @@
 5. Click **+ Add Subnet** and configure the following:
    - **Name:** `Private Subnet`
    - **Subnet Address Range:** `10.0.4.0/24`
+   - Enable Private subnet
 
 6. Click **+ Add Subnet** and configure the following:
    - **Name:** `Public Subnet`
@@ -35,6 +38,9 @@
 7. Click **+ Add Subnet** and configure the following:
    - **Name:** `dmz-Subnet`
    - **Subnet Address Range:** `10.0.3.0/24`
+
+![alt text](Vnet-1-1.png)
+
 
 8. Click **Next: Security** and configure as needed.
 9. Click **Next: Tags** and add:
@@ -67,7 +73,9 @@
 4. Add the following **Tags**:  
    - **Owner:** `Maram`  
 
-5. Click **Review and Create** ✅  
+5. Click **Review and Create** ✅ 
+
+ ![alt text](DB-VM-1.png)
 
 ---
 
@@ -103,7 +111,10 @@
 4. Add the following **Tags**:  
    - **Owner:** `Maram`  
 
-5. Click **Review and Create** ✅  
+5. Click **Review and Create** ✅ 
+
+
+![alt text](app-vm.png)
 
 ---
 
@@ -115,12 +126,17 @@
 2. **Ping the Database VM to check connectivity**
    ```bash
    ping 10.0.4.4
+
+c:\Users\Maram\OneDrive\Desktop\ping.png
+
 3. Check if the application is running
     ```bash
     http://http://20.90.209.188/posts
 
+c:\Users\Maram\OneDrive\Desktop\posts.png
+
 ---
-## step 4: Create the NVA (Network Virtual Appliance) VM  
+## Step 4: Create the NVA (Network Virtual Appliance) VM  
 
 1. Go to **Azure Portal** → **Create a Virtual Machine**.  
 2. On the **Basics** tab, configure the following:  
@@ -140,15 +156,23 @@
 
 4. Add the following **Tags**:  
    - **Owner:** `Maram`  
-5. Click **Review and Create** ✅  
+5. Click **Review and Create** ✅
+
+
+![alt text](nva-vm.png)
 
 ---
+
 ## Step 5: Create the Route Table and Add Routes
 
 ### 1. Create the Route Table
 - Under **Route Tables**, click **Create route table**.
 - Name the route table as `tech501-maram-to-private-table-rt`.
 - Click **Create** to create the route table.
+
+
+![alt text](Route-table.png)
+
 
 ### 2. Add a Route to the Table
 - After the route table is created, select it from the list of **Route Tables**.
@@ -159,6 +183,8 @@
   - **Virtual appliance IP**: `10.0.3.4`
 - Click **Save routes**.
 
+![alt text](<Add Route.png>)
+
 ### 3. Associate the Route Table with Subnets
 - Go to the **Subnet Associations** tab in the route table.
 - Click **Edit subnet associations**.
@@ -167,11 +193,13 @@
   - **public-subnet**
 - Click **Save**.
 
+![alt text](<associate subnet.png>)
+
 This ensures that the route table `tech501-maram-to-private-table-rt` is associated with the selected subnets, and traffic from `10.0.4.0/24` will be routed through the virtual appliance at `10.0.3.4`.
 
 ---
 
-## step 6: Enabling IP Forwarding on NVA in Azure
+## Step 6: Enabling IP Forwarding on NVA in Azure
 
 ### Why Enable IP Forwarding?
 
@@ -191,6 +219,7 @@ IP forwarding is essential on a Network Virtual Appliance (NVA) in Azure because
    - Select the IP configuration that corresponds to the interface on which you want to enable IP forwarding.
    - Toggle **IP Forwarding** to **Enabled**.
    - Click **Save** to apply the changes.
+![alt text](<IP forwarding .png>)
 
 ---
 
@@ -212,8 +241,9 @@ Find the following line:
 #net.ipv4.ip_forward=1
 
 2.Uncomment the line (remove the #) :
-
+```bash
 net.ipv4.ip_forward=1
+```
 
 3. Apply the Changes
 To apply the changes immediately, run the following command:
@@ -222,9 +252,12 @@ To apply the changes immediately, run the following command:
 sudo sysctl -p
 ```
 * after reloading the ping should be back to work
+
+![alt text](IP-forwarding.png)
+
 ----
 
-### Step 7 # Creating Iptables Rules
+## Step 7: Creating Iptables Rules
 
 ### 1. Create a Bash Script to Automate Iptables Configuration
 
@@ -365,7 +398,7 @@ chmod +x config-ip-tables.sh
  ./config-ip-tables.sh
 ```
 
-## Step 8 Change database NSG:
+## Step 8: Change database NSG
 
 - Allow MongoDB traffic from the app VM:
   - IP Address: 10.0.2.0/24
@@ -376,9 +409,7 @@ chmod +x config-ip-tables.sh
   - Set the rule number to 1000.
 - Following the deny rules the ping should stop and will only work if we set a new rule allowing ping before the deny rule. 
 
-
-
-
+![alt text](NSG.png)
 
 
 

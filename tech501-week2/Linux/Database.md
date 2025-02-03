@@ -11,7 +11,7 @@
 
 ## Create a new VM:
 ### Dependencies
-- Name: tech501-yourname-sparta-app-db-vm
+- Name: tech501-maram-sparta-app-db-vm
 - Ubuntu 22.04 LTS image
 - Same size as usual
 - NSG: allow SSH

@@ -6,5 +6,6 @@
 
 [Autoscaling and Load Balancers](Linux/autoscaling.md)
 
+[Securing Databases](Linux/securing-DB.md)
 
 
