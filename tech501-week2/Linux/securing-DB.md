@@ -1,4 +1,5 @@
 
+
 # Securing Databases using a 3-subnet architecture:
 - A 3-subnet architecture using a DMZ (Demilitarized Zone) subnet and an NVA (Firewall) adds additional security layers by controlling traffic between external users, applications, and the database.
 
@@ -127,16 +128,14 @@
    ```bash
    ping 10.0.4.4
 
-c:\Users\Maram\OneDrive\Desktop\ping.png
-
-3. Check if the application is running
+1. Check if the application is running
     ```bash
     http://http://20.90.209.188/posts
 
-c:\Users\Maram\OneDrive\Desktop\posts.png
 
----
-## Step 4: Create the NVA (Network Virtual Appliance) VM  
+
+## Step 4: Create the NVA (Network Virtual Appliance) VM
+  
 
 1. Go to **Azure Portal** → **Create a Virtual Machine**.  
 2. On the **Basics** tab, configure the following:  
@@ -161,7 +160,8 @@ c:\Users\Maram\OneDrive\Desktop\posts.png
 
 ![alt text](nva-vm.png)
 
----
+<br>
+
 
 ## Step 5: Create the Route Table and Add Routes
 
@@ -261,12 +261,13 @@ sudo sysctl -p
 
 ### 1. Create a Bash Script to Automate Iptables Configuration
 
+- IP tables would allow the incoming traffic to the NVA VM to be filtered based on the rules set. 
 To automate the configuration of `iptables`, create a bash script called `config-ip-tables.sh`:
 ```bash
 nano config-ip-tables.sh
 ```
 
-2. Add the Following Content to the Script
+1. Add the Following Content to the Script
 ```bash
 #!/bin/bash
 
@@ -387,6 +388,16 @@ sudo DEBIAN_FRONTEND=noninteractive apt install iptables-persistent -y
 echo "Done!"
 echo ""
 ```
+# Script:
+
+- Loopback Traffic: Ensures internal communication within the system (e.g., between services).
+- Established and Related Connections: Ensures that once a connection is made, it is not blocked again.
+- Invalid Packets: A security measure to reject malformed packets that could indicate attack attempts.
+- SSH Access: Allows remote management of the server via SSH while ensuring only legitimate traffic is allowed.
+- MongoDB and ICMP Traffic: Allows specific application traffic like MongoDB and ICMP (ping) for network communication between virtual machines.
+- Block All Other Traffic: Ensures that anything not explicitly allowed by the rules is blocked, improving security.
+- Persistent Rules: Installs the iptables-persistent package to make sure the rules persist across system reboots.
+
 
 3. Change Permissions for the Script:
 ```bash
