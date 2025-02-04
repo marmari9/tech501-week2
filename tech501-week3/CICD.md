@@ -1,0 +1,10 @@
+- What is CI? Benefits?
+- What is CD? Benefits?
+- Difference between CD and CDE
+- What is Jenkins?
+- Why use Jenkins? Benefits of using Jenkins? Disadvantages?
+- Stages of Jenkins
+- What alternatives are there for Jenkins
+- Why build a pipeline? Business value?
+- Create a general diagram of CICD
+- Understand SDLC workflow: plan, design, develop, deploy
