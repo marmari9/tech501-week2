@@ -1,5 +1,3 @@
-
-
 # Securing Databases using a 3-subnet architecture:
 - A 3-subnet architecture using a DMZ (Demilitarized Zone) subnet and an NVA (Firewall) adds additional security layers by controlling traffic between external users, applications, and the database.
 
@@ -160,7 +158,6 @@
 
 ![alt text](nva-vm.png)
 
-<br>
 
 
 ## Step 5: Create the Route Table and Add Routes
